@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\Division;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class DivisionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $roles = Role::get();
-        return view('pages.role.index', compact('roles'));
+    public function index(){
+        $divisions = Division::get();
+        return view('pages.division.index', compact('divisions'))->with([
+            'title' => "division"
+        ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('pages.role.create');
+        return view('pages.division.create');
     }
 
     /**
@@ -33,7 +27,7 @@ class RoleController extends Controller
             'name' => 'required',
         ]);
 
-        $role = Role::create([
+        $division = Division::create([
             'name' => $request->name,
         ]);
 
@@ -54,9 +48,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        $role = Role::findOrFail($id);
+        $division = Division::findOrFail($id);
 
-        return view('pages.role.edit', compact('role'));
+        return view('pages.division.edit', compact('division'));
     }
 
     /**
@@ -64,13 +58,13 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $role = Role::findOrFail($id);
-        
+        $division = Division::findOrFail($id);
+
         $request->validate([
             'name' => 'required',
         ]);
 
-        $role->update([
+        $division->update([
             'name' => $request->name,
         ]);
 
@@ -82,9 +76,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        $role = Role::findOrFail($id);
+        $division = Division::findOrFail($id);
         
-        $role->delete();
+        $division->delete();
 
         return redirect()->back()->with('message', 'ITU TERHAPUS');
     }

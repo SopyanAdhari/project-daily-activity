@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'division_id'
+        'division_id',      
+        'isActive'
     ];
 
     /**
@@ -54,7 +55,7 @@ class User extends Authenticatable
     public function division()
     {
         return $this->belongsTo(Division::class);
-    }
+    } 
 
     public function activities()
     {

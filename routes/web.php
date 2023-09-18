@@ -1,7 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenteeController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\RoleController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +30,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('role', RoleController::class);
+Route::resource('division', DivisionController::class);
+Route::resource('mentor', MentorController::class);
+Route::resource('mentee', MenteeController::class);
 

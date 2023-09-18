@@ -21,22 +21,22 @@
                 @endif
                 <div class="card">
                     <div>
-                        <a href="{{ route('role.index') }}">Kembali</a>
-                    </div> 
+                        <a href="{{ route('division.index') }}">Kembali</a>
+                    </div>
                     <div class="card-header">{{ __('Dashboard') }}</div>
 
 
-                    <form action="{{ route('role.update', $role->id) }}" method="POST">
+                    <form action="{{ route('division.update', $division->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card bg-white">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Nama Role</label>
+                                    <label for="name" class="form-label">Nama Division</label>
                                     <input type="text" class="form-control" name="name"
-                                        placeholder="Masukkan Nama Role.." value="{{ $role->name }}">
+                                        placeholder="Masukkan Nama Role.." value="{{ $division->name }}">
                                 </div>
-                                <button type="submit" class="btn btn-success">Edit Role</button>
+                                <button type="submit" class="btn btn-success">Edit Division</button>
                             </div>
                         </div>
                     </form>
