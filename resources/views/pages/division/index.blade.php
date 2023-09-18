@@ -3,9 +3,9 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header h4 fw-bold">Halaman Divisi</div>
                     <div class="p-3">
                         <a href="{{ route('division.create') }}" class="btn btn-primary">
                             Tambah Division
@@ -23,7 +23,7 @@
                                 <th>Nama</th>
                                 <th>Action</th>
                             </tr>
-                            @foreach ($divisions as $division)
+                            @forelse ($divisions as $division)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $division->name }}</td>
@@ -42,7 +42,13 @@
                                    </div>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center fw-bold">
+                                    Data Not Found
+                                </td>
+                            </tr>
+                            @endforelse
                         </table>
                     </div>
 

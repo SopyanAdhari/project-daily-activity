@@ -27,7 +27,7 @@
                                 <th>Aksi</th>
 
                             </tr>
-                            @foreach ($mentors as $mentor)
+                            @forelse ($mentors as $mentor)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $mentor->name }}</td>
@@ -49,7 +49,13 @@
                                    </div>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center fw-bold">
+                                    Data Not Found
+                                </td>
+                            </tr>
+                            @endforelse
                         </table>
                     </div>
 
