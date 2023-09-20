@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MenteeController;
-use App\Http\Controllers\MentorController;
-use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\MenteeController;
+use App\Http\Controllers\Admin\MentorController;
+use App\Http\Controllers\Admin\DivisionController;
+use App\Http\Controllers\Admin\DashboardController;
 
 
 
@@ -28,6 +29,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::resource('role', RoleController::class);
 Route::resource('division', DivisionController::class);

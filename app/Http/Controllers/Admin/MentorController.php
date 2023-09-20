@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Division;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MentorController extends Controller
 {
@@ -22,7 +24,7 @@ class MentorController extends Controller
 
         $menteeCount = $mentees->where('division_id', $divisionId)->count();
 
-        return view('pages.mentor.index', compact('mentors'))->with([
+        return view('pages.admin.mentor.index', compact('mentors'))->with([
             'menteeCount' => $menteeCount
         ]);
     }
@@ -33,7 +35,7 @@ class MentorController extends Controller
     public function create()
     {
         $divisions = Division::get();
-        return view('pages.mentor.create')->with([
+        return view('pages.admin.mentor.create')->with([
             'divisions' => $divisions
         ]);
     }
@@ -58,7 +60,8 @@ class MentorController extends Controller
             'role_id' => $request->role,
             'isActive' => true
         ]);
-        return redirect()->back()->with('message', 'IT WORKS!');
+        Alert::success('Success', 'Data Berhasil ditambahkan');
+        return redirect()->route('mentor.index');
     }
 
     /**
@@ -76,7 +79,7 @@ class MentorController extends Controller
     {
         $mentor = User::findOrFail($id);
         $divisions = Division::get();
-        return view('pages.mentor.edit', compact('mentor'))->with([
+        return view('pages.admin.mentor.edit', compact('mentor'))->with([
             'divisions' => $divisions
         ]);
     }
@@ -110,7 +113,8 @@ class MentorController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', 'IT WORKS! UPDATE');
+        Alert::success('Success', 'Data Berhasil diubah');
+        return redirect()->route('mentor.index');
     }
 
     /**
@@ -122,6 +126,7 @@ class MentorController extends Controller
         
         $mentors->delete();
 
-        return redirect()->back()->with('message', 'ITU TERHAPUS');
+        Alert::success('Success', 'Data Berhasil dihapus');
+        return redirect()->route('mentee.index');
     }
 }

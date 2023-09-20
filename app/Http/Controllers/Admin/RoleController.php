@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RoleController extends Controller
 {
@@ -13,7 +15,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::get();
-        return view('pages.role.index', compact('roles'));
+        return view('pages.admin.role.index', compact('roles'));
     }
 
     /**
@@ -21,7 +23,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('pages.role.create');
+        return view('pages.admin.role.create');
     }
 
     /**
@@ -37,8 +39,8 @@ class RoleController extends Controller
             'name' => $request->name,
         ]);
 
-        
-        return redirect()->back()->with('message', 'IT WORKS!');
+        Alert::success('Success', 'Data Berhasil ditambahkan');
+        return redirect()->route('role.index');
     }
 
     /**
@@ -56,7 +58,7 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
 
-        return view('pages.role.edit', compact('role'));
+        return view('pages.admin.role.edit', compact('role'));
     }
 
     /**
@@ -74,7 +76,8 @@ class RoleController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->back()->with('message', 'IT WORKS! UPDATE');
+        Alert::success('Success', 'Data Berhasil diubah');
+        return redirect()->route('role.index');
     }
 
     /**
@@ -86,6 +89,7 @@ class RoleController extends Controller
         
         $role->delete();
 
-        return redirect()->back()->with('message', 'ITU TERHAPUS');
+        Alert::success('Success', 'Data Berhasil dihapus');
+        return redirect()->route('mentee.index');
     }
 }

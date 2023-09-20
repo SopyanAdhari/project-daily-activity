@@ -1,21 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Division;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DivisionController extends Controller
 {
     public function index(){
         $divisions = Division::get();
-        return view('pages.division.index', compact('divisions'))->with([
+        return view('pages.admin.division.index', compact('divisions'))->with([
             'title' => "division"
         ]);
     }
+
     public function create()
     {
-        return view('pages.division.create');
+        return view('pages.admin.division.create');
     }
 
     /**
@@ -31,8 +34,8 @@ class DivisionController extends Controller
             'name' => $request->name,
         ]);
 
-        
-        return redirect()->back()->with('message', 'IT WORKS!');
+        Alert::success('Sukses', 'Data berhasil ditambahkan');
+        return redirect()->route('division.index');
     }
 
     /**
@@ -50,7 +53,7 @@ class DivisionController extends Controller
     {
         $division = Division::findOrFail($id);
 
-        return view('pages.division.edit', compact('division'));
+        return view('pages.admin.division.edit', compact('division'));
     }
 
     /**
@@ -68,7 +71,8 @@ class DivisionController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->back()->with('message', 'IT WORKS! UPDATE');
+        Alert::success('Sukses', 'Data berhasil diubah');
+        return redirect()->route('division.index');
     }
 
     /**
@@ -80,6 +84,8 @@ class DivisionController extends Controller
         
         $division->delete();
 
-        return redirect()->back()->with('message', 'ITU TERHAPUS');
+        Alert::success('Sukses', 'Data berhasil dihapus');
+        return redirect()->route('division.index');
     }
 }
+                                

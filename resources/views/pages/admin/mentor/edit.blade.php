@@ -1,31 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+
+<div class="card rounded">
+    <div class="card-body">
+        <div class="d-flex gap-2 justify-content-between">
+            <div class="d-flex gap-2">
+                <div class="d-flex shadow-none border p-3 align-items-center">
+                    <i data-feather="user"></i>
+                </div>
+                <div class="align-self-center">
+                    <h1 class="h3 mb-0">Form Edit Mentor</h1>
+                    <small class="text-muted">Halaman untuk mengedit data Mentor</small>
+                </div>
+            </div>
+            <div>
+                <a href="{{ route('mentor.index') }}">Kembali</a>
+            </div>
+        </div>
+    </div>
+</div>
+
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                @if (session()->has('message'))
-                    <div class="alert alert-success">
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
+            <div class="col-md-12">
                 <div class="card">
-                    <div>
-                        <a href="{{ route('mentor.index') }}">Kembali</a>
-                    </div>
-                    <div class="card-header">{{ __('Dashboard') }}</div>
-
-
                     <form action="{{ route('mentor.update', $mentor->id) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -95,5 +93,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection

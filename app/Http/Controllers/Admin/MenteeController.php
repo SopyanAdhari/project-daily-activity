@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Division;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MenteeController extends Controller
 {
@@ -14,7 +16,7 @@ class MenteeController extends Controller
     {
         $mentees = User::where('role_id', 2)->get();
         
-        return view('pages.mentee.index', compact('mentees'));
+        return view('pages.admin.mentee.index', compact('mentees'));
     }
 
     /**  
@@ -23,7 +25,7 @@ class MenteeController extends Controller
     public function create()
     {
         $divisions = Division::get();
-        return view('pages.mentee.create')->with([
+        return view('pages.admin.mentee.create')->with([
             "divisions" => $divisions
         ]);
     }
@@ -45,12 +47,21 @@ class MenteeController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'division_id' => $request->division,
-            'role_id' => $request->role,
-            'isActive' => false
+            'is_active' => false
         ]);
 
-        
-        return redirect()->back()->with('message', 'IT WORKS!');
+        $role = Role::where('name', 'mentee')->OrWhere('name', 'Mentee')->first();
+        if($role){
+            $mentees->update([
+                'role_id' => $role->id
+            ]);
+        }else{ 
+            Alert::warning('Warning', 'Role Mentee tidak ditemukan');
+            return redirect()->route('mentee.index');
+        }
+
+        Alert::success('Success', 'Data Berhasil ditambahkan');
+        return redirect()->route('mentee.index');
     }
 
     /**
@@ -68,7 +79,7 @@ class MenteeController extends Controller
     {
         $mentee = User::findOrFail($id);
         $divisions = Division::get();
-        return view('pages.mentee.edit', compact('mentee'))->with([
+        return view('pages.admin.mentee.edit', compact('mentee'))->with([
             'divisions' => $divisions
         ]);
     }
@@ -81,9 +92,9 @@ class MenteeController extends Controller
         $mentees = User::findOrFail($id);
 
 
-        if($request->isActive === "0"){
+        if($request->is_active === "0"){
             $mentees->update([
-                'isActive' => true,
+                'is_active' => true,
             ]);
         }else{
             $request->validate([
@@ -103,7 +114,8 @@ class MenteeController extends Controller
         }
         
 
-        return redirect()->back()->with('message', 'IT WORKS! UPDATE');
+        Alert::success('Success', 'Data Berhasil diubah');
+        return redirect()->route('mentee.index');
     }
 
     /**
@@ -115,6 +127,7 @@ class MenteeController extends Controller
         
         $mentees->delete();
 
-        return redirect()->back()->with('message', 'ITU TERHAPUS');
+        Alert::success('Success', 'Data Berhasil dihapus');
+        return redirect()->route('mentee.index');
     }
 }
