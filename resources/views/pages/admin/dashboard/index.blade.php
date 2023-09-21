@@ -94,7 +94,7 @@
                                         </div>
                                         <div class="align-self-center">
                                             <h1 class="h5 mb-0">Total Mentor</h1>
-                                            <h4> class="fw-bold">{{ $total_mentor }}</h3>
+                                            <h4 class="fw-bold">{{ $total_mentor }}</h3>
                                         </div>
                                     </div>
                                 </div>

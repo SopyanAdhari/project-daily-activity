@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'role_id',
         'division_id',      
-        'isActive'
+        'is_active'
     ];
 
     /**
