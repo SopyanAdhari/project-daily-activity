@@ -87,34 +87,15 @@ class MenteeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateVerifikasi(Request $request, string $id)
     {
         $mentees = User::findOrFail($id);
 
+        $mentees->update([
+            'is_active' => true,
+        ]);
 
-        if($request->is_active === "0"){
-            $mentees->update([
-                'is_active' => true,
-            ]);
-        }else{
-            $request->validate([
-                'name' => 'required',
-                'email' =>"required|email|unique:users,email",
-                // "password" => 'required',
-                'confirmPassword' => "required_with:password|same:password"
-            ]);
-
-            $mentees->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                // 'password' => $request->password,
-                'division_id' => $request->division,
-                'role_id' => $request->role,
-            ]);
-        }
-        
-
-        Alert::success('Success', 'Data Berhasil diubah');
+        Alert::success('Success', 'Data Berhasil diverifikasi');
         return redirect()->route('mentee.index');
     }
 

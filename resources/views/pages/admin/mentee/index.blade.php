@@ -59,7 +59,7 @@
                                                 </form>
                                             </div>
                                         @else
-                                            <form action="{{ route('mentee.update', $mentee->id) }}" method="POST">
+                                            <form action="{{ route('mentee.verifikasi', $mentee->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" name="is_active" value="{{ $mentee->is_active }}">
