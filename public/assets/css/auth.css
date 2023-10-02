@@ -1,0 +1,164 @@
+body {
+    font-family: "Inter", sans-serif;
+}
+.app-logo {
+    height: 125px !important;
+    width: 150px !important;
+    background: url("../img/andifa-logo.png") no-repeat !important;
+    background-size: 150px auto !important;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #47af42 !important;
+    border-color: #47af42 !important;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #30952a !important;
+    border-color: #30952a !important;
+}
+
+.btn-check:focus + .btn-success,
+.btn-success:focus {
+    color: #fff;
+    background-color: #30952a !important;
+    border-color: #30952a !important;
+    box-shadow: 0 0 0 0 rgba(134, 221, 76, 0.8) !important;
+}
+
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slick-slider .slide-img-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    /* opacity: .4; */
+    z-index: 10;
+}
+
+.slick-slider .slider-content {
+    position: relative;
+    z-index: 15;
+    text-align: center;
+    margin: 0 6rem;
+}
+
+.slick-slider .slider-content h3,
+.slick-slider .slider-content .h3 {
+    font-size: 1.54rem;
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+}
+
+.slick-slider .slider-content p {
+    font-size: 0.88rem;
+    opacity: 0.7;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
+
+.app-theme-white.app-container {
+    background: #f1f4f6;
+}
+
+.app-login-box .app-logo {
+    margin-bottom: 1rem;
+}
+
+.form-floating {
+    position: relative;
+}
+
+.form-floating > .form-control,
+.form-floating > .form-select {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+}
+
+.form-floating > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1rem 0.75rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-floating > label {
+        transition: none;
+    }
+}
+
+.form-floating > .form-control {
+    padding: 1rem 0.75rem;
+}
+
+.form-floating > .form-control::placeholder {
+    color: transparent;
+}
+
+.form-floating > .form-control:focus,
+.form-floating > .form-control:not(:placeholder-shown) {
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.form-floating > .form-control:-webkit-autofill {
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.form-floating > .form-select {
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.form-floating > .form-control:-webkit-autofill ~ label {
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.bg-green-grass {
+    background-image: linear-gradient(
+        135deg,
+        #409d61 0%,
+        #bcfbd2 100%
+    ) !important;
+}

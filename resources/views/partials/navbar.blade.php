@@ -21,14 +21,15 @@
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                     data-bs-toggle="dropdown">
-                    <span class="text-dark">Sopyan Adhari</span>
+                    <span class="text-dark">{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-                            data-feather="user"></i> Profile</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
 
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                 </div>
             </li>
         </ul>
