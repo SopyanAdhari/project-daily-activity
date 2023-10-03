@@ -39,9 +39,13 @@
                             @forelse ($mentors as $mentor)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $mentor->name }}</td>
+                                    <td>
+                                        <a href="{{ route('mentor.show', $mentor->id) }}">
+                                            {{ $mentor->name }}
+                                        </a>
+                                    </td>
                                     <td>{{ $mentor->email }}</td>
-                                    <td>{{ $menteeCount }}</td>
+                                    <td>{{ $mentor->mentee_count }}</td>
                                     <td>{{ $mentor->created_at }}</td>
                                     <td>
                                         <div class="d-flex gap-2">

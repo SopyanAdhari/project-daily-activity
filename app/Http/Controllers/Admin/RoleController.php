@@ -86,6 +86,11 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         $role = Role::findOrFail($id);
+
+        if($role->users()->count() > 0){
+            Alert::error('Error', 'Data tidak bisa dihapus karena masih digunakan');
+            return redirect()->route('role.index');
+        }
         
         $role->delete();
 

@@ -66,4 +66,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Feedback::class);
     }
+
+    public function mentees()
+    {
+        return $this->hasMany(Mentee::class, 'user_id');
+    }
+
+    public function mentors()
+    {
+        return $this->hasMany(Mentee::class, 'mentor_id');
+    }
+
+    public function getMenteeCountAttribute()
+    {
+        return $this->mentors()->count();
+    }
+    
 }

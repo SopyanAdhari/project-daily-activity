@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Mentee;
 use App\Models\Division;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,21 +14,12 @@ class MentorController extends Controller
 {
     public function index()
     {   
-        $mentors = User::where('role_id', 1)->get();
+        $mentors = User::WhereHas('role', function($query){
+            $query->where('name', 'Mentor')->orWhere('name', 'mentor');
+        })->get();
 
-        $mentees = User::where('role_id', 2)->get();
-        $divisionId = 0;
 
-        foreach ($mentees as $mentee) {
-            // Mengambil division_id untuk setiap objek User
-            $divisionId = $mentee->division_id;
-        }
-
-        $menteeCount = $mentees->where('division_id', $divisionId)->count();
-
-        return view('pages.admin.mentor.index', compact('mentors'))->with([
-            'menteeCount' => $menteeCount
-        ]);
+        return view('pages.admin.mentor.index', compact('mentors'));
     }
 
     /**
@@ -52,14 +45,26 @@ class MentorController extends Controller
             'confirmPassword' => "required_with:password|same:password"
         ]);
 
-        $mentors = User::create([
+        $mentor = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'division_id' => $request->division,
-            'role_id' => $request->role,
-            'isActive' => true
+            'is_active' => true
         ]);
+
+
+        $role = Role::where('name', 'mentor')->OrWhere('name', 'Mentor')->first();
+        if($role){
+            $mentor->update([
+                'role_id' => $role->id
+            ]);
+        }else{ 
+            Alert::warning('Warning', 'Role Mentor tidak ditemukan');
+            return redirect()->route('mentee.index');
+        }
+
+        
         Alert::success('Success', 'Data Berhasil ditambahkan');
         return redirect()->route('mentor.index');
     }
@@ -69,7 +74,17 @@ class MentorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $mentor = User::findOrFail($id);
+
+
+        $mentees = User::WhereHas('role', function($query){
+            $query->where('name', 'Mentee')->orWhere('name', 'mentee');
+        })->get();
+
+        $mentors = Mentee::where('mentor_id', $mentor->id)->get();
+
+
+        return view('pages.admin.mentor.show', compact('mentor', 'mentees', 'mentors'));
     }
 
     /**
@@ -92,9 +107,9 @@ class MentorController extends Controller
         $mentors = User::findOrFail($id);
 
 
-        if($request->isActive === "0"){
+        if($request->is_active === "0"){
             $mentors->update([
-                'isActive' => true,
+                'is_active' => true,
             ]);
         }else{
             $request->validate([
@@ -109,7 +124,6 @@ class MentorController extends Controller
                 'email' => $request->email,
                 // 'password' => $request->password,
                 'division_id' => $request->division,
-                'role_id' => $request->role,
             ]);
         }
 
@@ -128,5 +142,40 @@ class MentorController extends Controller
 
         Alert::success('Success', 'Data Berhasil dihapus');
         return redirect()->route('mentee.index');
+    }
+
+    public function storeMentee($id, Request $request)
+    {
+        $mentor = User::findOrFail($id);
+        
+        $request->validate([
+            'user_id' => 'required'
+        ]);
+
+        $mentee = Mentee::where('mentor_id', $mentor->id)->where('user_id', $request->user_id)->first();
+
+        if($mentee){
+            Alert::warning('Warning', 'Mentee sudah ada');
+            return redirect()->route('mentor.show', $id);
+        }
+        
+        $mentee = Mentee::create([
+            'mentor_id' => $mentor->id,
+            'user_id' => $request->user_id
+        ]);
+
+        Alert::success('Success', 'Data Berhasil ditambahkan');
+        return redirect()->route('mentor.show', $id);
+    }
+
+    public function destroyMentee($id, $mentee_id)
+    {
+        $mentor = User::findOrFail($id);
+        $mentee = Mentee::findOrFail($mentee_id);
+        
+        $mentee->delete();
+
+        Alert::success('Success', 'Data Berhasil dihapus');
+        return redirect()->route('mentor.show', $id);
     }
 }

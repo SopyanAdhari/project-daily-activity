@@ -82,6 +82,11 @@ class DivisionController extends Controller
     {
         $division = Division::findOrFail($id);
         
+        if($division->users()->count() > 0){
+            Alert::error('Error','Data tidak bisa dihapus karena masih digunakan');
+            return redirect()->route('division.index');
+        }
+        
         $division->delete();
 
         Alert::success('Sukses', 'Data berhasil dihapus');

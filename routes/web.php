@@ -34,6 +34,8 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.
 
 Route::resource('role', RoleController::class);
 Route::resource('division', DivisionController::class);
+Route::post('mentor/{id}', [MentorController::class, 'storeMentee'])->name('mentor.store-mentee');
+Route::delete('mentor/{id}/{mentee_id}', [MentorController::class, 'destroyMentee'])->name('mentor.destroy-mentee');
 Route::resource('mentor', MentorController::class);
+
 Route::resource('mentee', MenteeController::class);
-Route::put('mentee/verifikasi/{id}',[MenteeController::class, 'updateVerifikasi'])->name('mentee.verifikasi');

@@ -42,7 +42,7 @@ class MenteeController extends Controller
             'confirmPassword' => "required_with:password|same:password"
         ]);
 
-        $mentees = User::create([
+        $mentee = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
@@ -52,7 +52,7 @@ class MenteeController extends Controller
 
         $role = Role::where('name', 'mentee')->OrWhere('name', 'Mentee')->first();
         if($role){
-            $mentees->update([
+            $mentee->update([
                 'role_id' => $role->id
             ]);
         }else{ 
@@ -87,15 +87,33 @@ class MenteeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateVerifikasi(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $mentees = User::findOrFail($id);
 
-        $mentees->update([
-            'is_active' => true,
-        ]);
 
-        Alert::success('Success', 'Data Berhasil diverifikasi');
+        if($request->is_active === "0"){
+            $mentees->update([
+                'is_active' => true,
+            ]);
+        }else{
+            $request->validate([
+                'name' => 'required',
+                'email' =>"required|email|unique:users,email",
+                // "password" => 'required',
+                'confirmPassword' => "required_with:password|same:password"
+            ]);
+
+            $mentees->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                // 'password' => $request->password,
+                'division_id' => $request->division,
+            ]);
+        }
+        
+
+        Alert::success('Success', 'Data Berhasil diubah');
         return redirect()->route('mentee.index');
     }
 
@@ -105,6 +123,8 @@ class MenteeController extends Controller
     public function destroy(string $id)
     {
         $mentees = User::findOrFail($id);
+
+        
         
         $mentees->delete();
 
