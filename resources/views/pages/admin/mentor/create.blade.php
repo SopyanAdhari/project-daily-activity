@@ -50,12 +50,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Password</label>
-                                <input type="text" class="form-control" name="password"
+                                <input type="password" class="form-control" name="password"
                                     placeholder="Masukkan Password..">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Konfirmasi Password</label>
-                                <input type="text" class="form-control" name="confirmPassword"
+                                <input type="password" class="form-control" name="confirmPassword"
                                     placeholder="Konfirmasi Password..">
                             </div>
                             <button type="submit" class="btn btn-primary">Tambah Mentor</button>

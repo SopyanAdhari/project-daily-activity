@@ -61,7 +61,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="text" id="password" class="form-control  @error('password') @enderror"
+                                <input type="password" id="password" class="form-control  @error('password') @enderror"
                                     name="password" placeholder="Masukkan Password.." value="{{ old('password') }}">
                                 @error('password')
                                     <div class="invalid-feedback">
@@ -71,7 +71,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
-                                <input type="text" id="confirmPassword"
+                                <input type="password" id="confirmPassword"
                                     class="form-control  @error('confirmPassword') @enderror" name="confirmPassword"
                                     placeholder="Konfirmasi Password..">
                                 @error('confirmPassword')

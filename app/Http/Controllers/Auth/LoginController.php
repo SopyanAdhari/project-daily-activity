@@ -33,7 +33,7 @@ class LoginController extends Controller
     {
         if ($user->role) {
             if ($user->role->name == 'admin' || $user->role->name == 'Admin') {
-                return redirect('dashboard');
+                return redirect('admin/dashboard');
             } elseif ($user->role->name == 'mentor' || $user->role->name == 'Mentor') {
                 return redirect('mentor/dashboard');
             } elseif ($user->role->name == 'mentee' || $user->role->name == 'Mentee') {

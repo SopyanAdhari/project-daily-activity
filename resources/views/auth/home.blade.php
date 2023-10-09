@@ -22,7 +22,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card">
-                                    <div class="card-header">{{ __('Dashboard') }}</div>
+                                    <div class="card-header">{{ __('Home') }}</div>
 
                                     <div class="card-body">
                                         @if (session('status'))
@@ -32,8 +32,15 @@
                                         @endif
                                         Hi, <b>{{ Auth::user()->name }}</b> <br />
                                         {{ __('You are logged in!') }}
-
-                                        <br/><br/>
+                                        <br/> <br/>
+                                        @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'Admin')
+                                            <a href="{{ route('dashboard.index') }}" class="btn btn-sm btn-outline-secondary">Back to Dashboard</a>
+                                        @elseif (Auth::user()->role->name == 'mentor' || Auth::user()->role->name == 'Mentor')
+                                            <a href="{{ route('mentor.dashboard') }}" class="btn btn-sm btn-outline-secondary">Back to Dashboard</a>
+                                        @elseif (Auth::user()->role->name == 'mentee' || Auth::user()->role->name == 'Mentee')
+                                            <a href="{{ route('home') }}" class="btn btn-sm btn-outline-secondary">Back to Dashboard</a>
+                                        @endif
+                                        <br /><br />
                                         <a class="" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log
                                             out</a>

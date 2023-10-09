@@ -30,12 +30,18 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Route Admin
+Route::middleware(['auth'])->prefix('admin')->group(function () {
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
 Route::resource('role', RoleController::class);
 Route::resource('division', DivisionController::class);
 Route::post('mentor/{id}', [MentorController::class, 'storeMentee'])->name('mentor.store-mentee');
 Route::delete('mentor/{id}/{mentee_id}', [MentorController::class, 'destroyMentee'])->name('mentor.destroy-mentee');
 Route::resource('mentor', MentorController::class);
-
 Route::resource('mentee', MenteeController::class);
+});
+
+
+
+require __DIR__.'/role/mentor.php';
+require __DIR__.'/role/mentee.php';

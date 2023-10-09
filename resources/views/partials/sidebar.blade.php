@@ -8,37 +8,17 @@
             <li class="sidebar-header">
 
             </li>
+            @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'Admin')
+            @include('partials.sidebar-role.sidebar-admin')
+            @endif
 
-            <li class="sidebar-item {{ request()->routeIs('dashboard.*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('dashboard.index') }}">
-                    <i class="align-middle" data-feather="home"></i> <span
-                        class="align-middle">Dashboard</span>
-                </a>
-            </li>
+            @if (Auth::user()->role->name == 'mentor' || Auth::user()->role->name == 'Mentor')
+            @include('partials.sidebar-role.sidebar-mentor')
+            @endif
 
-            <li class="sidebar-item {{ request()->routeIs('mentor.*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('mentor.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Mentor</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item {{ request()->routeIs('mentee.*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('mentee.index') }}">
-                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Mentee</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item {{ request()->routeIs('role.*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('role.index') }}">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Role</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item {{ request()->routeIs('division*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('division.index') }}">
-                    <i class="align-middle" data-feather="tool"></i> <span class="align-middle">Division</span>
-                </a>
-            </li>
+            @if (Auth::user()->role->name == 'mentee' || Auth::user()->role->name == 'Mentee')
+            @include('partials.sidebar-role.sidebar-mentee')
+            @endif
         </ul>
     </div>
 </nav>

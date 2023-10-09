@@ -77,7 +77,6 @@
                                   @elseif($user->role->name == 'Mentee' || $user->role->name == 'mentee')
                                       <span class="badge bg-success">Mentee</span>
                                   @endif
-                                    Role {{ $user->role->name }}
                                 </small>
                                 </td>
                                 <td>
@@ -89,6 +88,11 @@
                                 </td>
                             </tr>
                         @empty
+                        <tr>
+                            <td colspan="2" class="text-center fw-bold">
+                                Tidak ada data
+                            </td>
+                        </tr>
                         @endforelse
                     </table>
                 </div>
@@ -100,7 +104,7 @@
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    
+
     <script>
         const ctx = document.getElementById('myChart');
         new Chart(ctx, {
